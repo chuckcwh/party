@@ -1,0 +1,76 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Let's Party!</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.min.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootswatch_cyborg.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}">
+    <!------- Angular ------->
+    <script src="{% static "js/vendors/angular/angular.js" %}"></script>
+    <script src="{% static "js/vendors/angular/angular-route.js" %}"></script>
+
+    <!-- Angular UI -->
+    <script src="{% static "js/vendors/angular-ui/ui-bootstrap-tpls-0.11.2.min.js" %}"></script>
+    <script src='//maps.googleapis.com/maps/api/js?sensor=true'></script>
+    <script src="{% static "js/vendors/angular-google-maps/lodash.min.js" %}"></script>
+    <script src="{% static "js/vendors/angular-google-maps/angular-google-maps.min.js" %}"></script>
+    <!-- JavaScript -->
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static "js/app.js" %}"></script>
+{#    <script src="{% static 'js/map.js' %}"></script>#}
+    <!------- Controllers ------->
+    <script src="{% static "js/controllers/homeController.js" %}"></script>
+    <script src="{% static "js/controllers/browseController.js" %}"></script>
+    <script src="{% static "js/controllers/userController.js" %}"></script>
+{#    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT5QqcldlrlbhwN_xu41vD5BMGy9j_t9Y&sensor=true"></script>#}
+
+</head>
+
+
+<body>
+
+
+    <div ng-app="angParty">
+        <nav class="navbar transparent navbar-inverse" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <a class="navbar-brand" href="{% url 'index' %}">Party Night</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="{% url 'index' %}">home</a></li>
+                <li><a href="">User</a></li>
+                <li><a href="#/event_browse/">Browser</a></li>
+                <li><a href="{% url 'event' %}">Event</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+        {#        <li><a href="{% url 'faq' %}">FAQ</a></li>#}
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'user' %}">Welcome~{{ user.username }}!</a></li>
+                <li><a href="{% url 'user' %}">Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% if user.is_staff %}
+                        <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+
+        <div ng-view></div>
+    </div>
+
+</body>
+</html>

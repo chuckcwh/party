@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock title %}
+
+{% block bodyExt %}
+    <div class="middlebox">
+        <table>
+            <form method="post" action=".">
+                {% csrf_token %}
+                {{ form.as_table }}
+
+                <input type="submit" value="Submit">
+            </form>
+        </table>
+    </div>
+{% endblock %}
+
+{#<body>#}
+{#    <div class="col-md-2"></div>#}
+{#    <div class="col-md-4">#}
+{#        <img id="rocketULogo_regi" src="{% static "img/rocketu-logo-dark.png" %}">#}
+{#    </div>#}
+{#    <div id="registration_form" class="col-md-3">#}
+{#        <div class="middlebox">#}
+{#            {% csrf_token %}#}
+{#        </div>#}
+{#    </div>#}
+{#</body>#}
+
+
+
+
+
+
+
+

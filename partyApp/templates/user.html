@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}User{% endblock %}
+
+{% block headExt %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static "js/user.js" %}"></script>
+{% endblock %}
+
+{% block bodyExt %}
+{#  image form#}
+    <form method="post" name="img" action="." enctype="multipart/form-data" style="display: none;">
+        {% csrf_token %}
+        {{ imageform }}
+        <input type="submit" name="img" value="Submit">
+    </form>
+
+    <h2>Username: {{ user.username }}</h2>
+    <button id="userEdit">Edit Profile</button>
+    <ul>
+        <li>password: </li>
+        <li>first name: {{ user.first_name }}</li>
+        <li>last name: {{ user.last_name }}</li>
+        <li>Email: {{ user.email }}</li>
+        <li>Profile image:
+            <div id="profile_photo">
+                <a href=""><img  height="100" width="100" class="img-circle profile_photo_change" src="{% static user.image.url %}"/></a>
+            </div>
+        </li>
+        <li>Date joined: {{ user.date_joined }}</li>
+        <li>Birth: {{ user.birth }}</li>
+        <li>Sex: {{ user.sex }}</li>
+        <li>About: {{ user.about }}</li>
+    </ul>
+{#data form#}
+    <div id="editWindow" style="display: none">
+        <form method="post" name="data" action=".">
+            {% csrf_token %}
+            {{ editform.as_p }}
+            <input type="submit" name="data" value="Submit">
+        </form>
+    </div>
+
+
+{% endblock %}

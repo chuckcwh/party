@@ -1,0 +1,37 @@
+<h1>Event Browser page</h1>
+<!--Google Map window-->
+<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+
+    <ui-gmap-circle center='circle.center'
+        radius='circle.radius'
+        fill='circle.fill'
+        stroke='circle.stroke'>
+    </ui-gmap-circle>
+
+    <ui-gmap-marker coords="marker.coords" idKey="marker.id">
+        <ui-gmap-window options="windowOptions" closeClick="closeClick()">
+            <div>You're Here!</div>
+        </ui-gmap-window>
+    </ui-gmap-marker>
+
+    <ui-gmap-markers models="filterPartyMarker" coords="'location'">
+    </ui-gmap-markers>
+
+</ui-gmap-google-map>
+
+<!--Distance selector-->
+<span>Distance within: </span>
+<input type="radio" ng-model="circle.radius" ng-value="1000" name="circle"> 1km
+<input type="radio" ng-model="circle.radius" ng-value="2000" name="circle"> 2km
+<input type="radio" ng-model="circle.radius" ng-value="3000" name="circle"> 3km<br>
+
+<input type="text" class="form-control" ng-model="partyKwd" placeholder="Party keywords"><br>
+
+<div ng-repeat="party in parties | filter: partyKwd">
+    <div style="background-color: rgba(255,0,0,0.2);">
+        <h4>Title: {{ party.title }}</h4>
+        <p>Time: {{ party.time }}</p>
+        <p>Host: {{ party.owner.username }}</p>
+    </div>
+</div>
+
