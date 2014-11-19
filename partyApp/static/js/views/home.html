@@ -1,1 +1,16 @@
-<div id="home_img"></div>
+<div style="height: 20px; width: 100%">
+
+</div>
+<div align="center">
+    <div style="height: 305px; width: 800px;">
+        <carousel interval="myInterval">
+          <slide ng-repeat="slide in slides" active="slide.active">
+            <img ng-src="media/{{slide.image}}" style="margin:auto;height: 500px; width: 800px">
+            <div class="carousel-caption">
+              <h1 style="font-family: 'Lobster', cursive;">{{slide.text}}</h1>
+            </div>
+          </slide>
+        </carousel>
+    </div>
+</div>
+

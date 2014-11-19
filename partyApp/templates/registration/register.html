@@ -1,19 +1,31 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Register{% endblock title %}
+{% block title %}Register{% endblock %}
+
 
 {% block bodyExt %}
-    <div class="middlebox">
-        <table>
-            <form method="post" action=".">
-                {% csrf_token %}
-                {{ form.as_table }}
+    <div class="dark_img">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div style="margin-top:50px;" class="window">
+                <h4 style="color: #7f991D">Registration</h4>
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
-                <input type="submit" value="Submit">
-            </form>
-        </table>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
     </div>
+
+    <script></script>
+
 {% endblock %}
+
+
+
+
 
 {#<body>#}
 {#    <div class="col-md-2"></div>#}

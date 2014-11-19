@@ -1,0 +1,8 @@
+---
+
+db_name: "party"
+db_user: "chuck"
+db_password: "123"
+nginx_server_name:
+django_settings_file: "party.settings"
+proxy_ip: 127.0.0.1:8001

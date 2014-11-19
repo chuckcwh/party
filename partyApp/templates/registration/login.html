@@ -2,16 +2,25 @@
 
 {% block title %}Log In{% endblock %}
 
+
 {% block bodyExt %}
-    <form method="post" action=".">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <div class="dark_img">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div style="margin-top:50px;" class="window">
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
-        <input type="submit" value="Log in">
-    </form>
+                    <input class="btn btn-primary" type="submit" value="Log in">
+                </form>
 
-    <p>Not member? <a href="{% url 'register' %}">Register!</a></p>
-    <p>Forgot your password? <a href="{% url 'password_reset' %}">Click here</a></p>
+                <p>Not member? <a href="{% url 'register' %}">Register!</a></p>
+                <p>Forgot your password? <a href="{% url 'password_reset' %}">Click here</a></p>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
 
 
