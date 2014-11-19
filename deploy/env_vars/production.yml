@@ -1,0 +1,8 @@
+---
+
+db_name: "party"
+db_user: "chuck"
+db_password: "123"
+nginx_server_name: ec2-54-148-197-171.us-west-2.compute.amazonaws.com
+django_settings_file: "party.settings"
+proxy_ip: 127.0.0.1:8001

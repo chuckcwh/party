@@ -1,0 +1,10 @@
+---
+
+virtualenv_path: /home/ubuntu/.virtualenvs/party
+git_repo: 
+git_version: developer
+project_name: party
+project_path: "/home/ubuntu/{{ project_name }}"
+requirements_file: "{{ project_path }}/requirements.txt"
+supervisor_path: /etc/supervisor/conf.d/{{ project_name }}.conf
+wsgi_root: party

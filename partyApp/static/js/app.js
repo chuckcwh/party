@@ -1,5 +1,6 @@
-var angParty = angular.module('angParty', ['ngRoute', 'ui.bootstrap', 'google-maps'.ns()]);
-
+var angParty = angular.module('angParty', ['ngRoute', 'ui.bootstrap', 'ngCookies','google-maps'.ns()]).run(function($http, $cookies) {
+    $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+});
 
 angParty.config(['$routeProvider', function($routeProvider){
     $routeProvider.
@@ -19,7 +20,7 @@ angParty.config(['$routeProvider', function($routeProvider){
                 }],
                 partyLocation: ["$q", "$http", function($q, $http) {
                     var defer = $q.defer();
-                    $http.get('/api/parties/')
+                    $http.get('/api/v1/parties/')
                     .success(function(response) {
                         console.log(response);
                         defer.resolve({'response': response});

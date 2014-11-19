@@ -29,7 +29,9 @@ class Party(models.Model):
     minAge = models.PositiveSmallIntegerField(blank=True, null=True)
     maxAge = models.PositiveSmallIntegerField(blank=True, null=True)
     targetSex = models.CharField(max_length=20, blank=True, null=True)
-    owner = models.ForeignKey(Profile, related_name='parties')
+    private = models.CharField(max_length=20)
+    owner = models.ForeignKey(Profile, related_name='parties_owner')
+    participants = models.ManyToManyField(Profile, related_name='parties_participants', blank=True, null=True)
 
     def __unicode__(self):
         return u"{}".format(self.title)

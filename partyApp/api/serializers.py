@@ -6,6 +6,8 @@ from partyApp.models import Party, Profile
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
+        fields = ('id', 'username', 'password', 'email', 'sex', 'first_name', 'last_name', 'birth', 'sex', 'about', 'image')
+        write_only_fields = ('password',)
 
 
 class PartySerializer(serializers.ModelSerializer):
@@ -16,7 +18,7 @@ class PartySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Party
-        fields = ('id', 'title', 'latitude', 'longitude', 'time', 'maxPpl','minAge', 'maxAge', 'targetSex', 'owner',)
+        fields = ('id', 'title', 'latitude', 'longitude', 'time', 'maxPpl','minAge', 'maxAge', 'targetSex', 'owner', 'partyImage')
         # read_only_fields = ('date_joined',)
 
     # def get_project_count(self, obj):
@@ -34,6 +36,4 @@ class PartySerializer(serializers.ModelSerializer):
     #     if len(username) < 4:
     #         raise serializers.ValidationError('Username is too short! (>= 4 digits)')
     #     return attrs
-
-
 

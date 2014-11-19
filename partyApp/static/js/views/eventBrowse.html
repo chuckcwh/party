@@ -1,37 +1,87 @@
-<h1>Event Browser page</h1>
-<!--Google Map window-->
-<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+<div class="row" style="margin-top: 45px;">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <!--Google Map window-->
+        <div id="mapWindow">
+            <ui-gmap-google-map center='map.center' zoom='map.zoom' options="options">
 
-    <ui-gmap-circle center='circle.center'
-        radius='circle.radius'
-        fill='circle.fill'
-        stroke='circle.stroke'>
-    </ui-gmap-circle>
+                <ui-gmap-circle center='circle.center'
+                    radius='circle.radius'
+                    fill='circle.fill'
+                    stroke='circle.stroke'>
+                </ui-gmap-circle>
 
-    <ui-gmap-marker coords="marker.coords" idKey="marker.id">
-        <ui-gmap-window options="windowOptions" closeClick="closeClick()">
-            <div>You're Here!</div>
-        </ui-gmap-window>
-    </ui-gmap-marker>
+                <ui-gmap-marker coords="marker.coords" icon="marker.icon" idKey="marker.id">
+                    <ui-gmap-window options="windowOptions" closeClick="closeClick()">
+                        <div style="color: blue">You're Here!</div>
+                    </ui-gmap-window>
+                </ui-gmap-marker>
 
-    <ui-gmap-markers models="filterPartyMarker" coords="'location'">
-    </ui-gmap-markers>
+                <ui-gmap-markers models="filterPartyMarker" icon="'icon'" coords="'location'" click="'onClick'">
+                    <ui-gmap-window show="'showWindow'" closeClick="'closeClick'" ng-cloak>
+                        <div>I get it!</div>
+                    </ui-gmap-window>
+                </ui-gmap-markers>
 
-</ui-gmap-google-map>
-
-<!--Distance selector-->
-<span>Distance within: </span>
-<input type="radio" ng-model="circle.radius" ng-value="1000" name="circle"> 1km
-<input type="radio" ng-model="circle.radius" ng-value="2000" name="circle"> 2km
-<input type="radio" ng-model="circle.radius" ng-value="3000" name="circle"> 3km<br>
-
-<input type="text" class="form-control" ng-model="partyKwd" placeholder="Party keywords"><br>
-
-<div ng-repeat="party in parties | filter: partyKwd">
-    <div style="background-color: rgba(255,0,0,0.2);">
-        <h4>Title: {{ party.title }}</h4>
-        <p>Time: {{ party.time }}</p>
-        <p>Host: {{ party.owner.username }}</p>
+            </ui-gmap-google-map>
+        </div>
+    </div>
+    <!--Distance selector-->
+    <div class="col-md-4">
+        <div class="contBox">
+            <span class="inline title">Distance</span>
+            <span class="contBoxExt right">
+                <input type="radio" ng-model="circle.radius" ng-value="500" name="circle"> 500m
+                <input type="radio" ng-model="circle.radius" ng-value="1500" name="circle" checked="checked"> 1.5km
+                <input type="radio" ng-model="circle.radius" ng-value="3000" name="circle"> 3km
+                <input type="radio" ng-model="circle.radius" ng-value="10000" name="circle"> 10km
+            </span>
+        </div>
+        <div class="contBox">
+            <span class="contBoxExt inline"><input type="text" class="form-control noBorder" ng-model="partyKwd" placeholder="Party keywords"></span>
+            <span class="title right">Keywords</span>
+        </div>
+        <div class="contBox">
+            <span class="inline title">Date In</span>
+            <span class="contBoxExt right">
+                <input type="radio" ng-model="" ng-value="" name="circle"> 7 days
+                <input type="radio" ng-model="" ng-value="" name="circle" checked="checked"> 1 month
+                <input type="radio" ng-model="" ng-value="" name="circle"> Longer
+            </span>
+        </div>
+        <div class="contBox">
+            <span class="contBoxExt inline">
+                <input type="radio" ng-model="" ng-value="" name="circle"> Public
+                <input style="margin-left: 50px;" type="radio" ng-model="" ng-value="" name="circle"> Private
+            </span>
+            <span class="title right">Party Type</span>
+        </div>
+        <h2 id="mapWord">Browse parties!! <span style="font-size: 12px;"><img height=30 width=30 ng-src="/static/img/check_box.png"> = Go!</span></h2>
     </div>
 </div>
+
+
+<div class="row" style="margin-top: 5px;">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" align="center">
+        <div class="partyBox" ng-repeat="party in parties | filter: partyKwd" ng-click="toggleCard();" ng-class="{'flipped': !check}">
+            <figure class="front">
+                <img height=150 width="250" ng-src='media/{{ party.partyImage }}'>
+                <p style="font-size: 28px;"><b>
+                    <div ng-click="follow(); check = !check" class="right">
+                        <span ng-hide="check"><img height=30 width=30 style="opacity: 0.2" ng-src="/static/img/check_box.png"></span>
+                        <span ng-show="check"><img height=30 width=30 ng-src="/static/img/check_box.png"></span>
+                    </div>
+                    {{ party.title }}</b>
+                </p>
+                <span class='partyBoxDate'><b>{{ party.time | date:'MM - dd'}}</b></span>
+            </figure>
+            <figure class="back">
+                <p>Host: {{ party.owner.username }}</p>
+            </figure>
+        </div>
+    </div>
+</div>
+
+
 

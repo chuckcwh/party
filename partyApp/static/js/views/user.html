@@ -1,14 +1,54 @@
-<div>
-    <img height=200 width=200 src="/static/media/{{ user.image }}">
-    {{ user.username }}
+<div class="col-md-1"></div>
+<div class="col-md-3">
+    <div ng-hide="groupAddShow || partyAddShow">
+        <div align="center" class="window">
+            <img height=180 width=180 ng-src="media/{{ user.image }}"><br>
+            {{ user.username }}
+        </div>
+
+        <div class="window">
+            Name: {{ user.first_name }} {{ user.last_name }}<br>
+            Birthday: {{ user.birth }}<br>
+            Email: {{ user.email }}<br>
+            Gender: {{ user.sex }}<br>
+        </div>
+    </div>
+    <div ng-show="groupAddShow">
+        <div class="window">
+            <p class="title">Create Group</p>
+            <input type="text" placeholder="Group Name" class="form-control" ng-model="group.name">
+            <input type="text" placeholder="Host" class="form-control" typeahead="user.username for user in userlist | filter:$viewValue | limitTo:8" ng-model="group.host">
+            <button class="btn btn-success" ng-click="addGroup();">Submit</button>
+        </div>
+    </div>
+    <div ng-show="partyAddShow">
+        <div class="window">
+            <p class="title">Create Parties</p>
+            <input type="text" placeholder="Party Title" class="form-control" ng-model="party.title">
+            <input type="text" placeholder="Latitude" class="form-control" ng-model="party.latitude">
+            <input type="text" placeholder="Longitude" class="form-control" ng-model="party.longitude">
+            <input type="text" placeholder="Latitude" class="form-control" ng-model="party.time">
+            <input type="text" placeholder="Owner" class="form-control" typeahead="user.username for user in userlist | filter:$viewValue | limitTo:8" ng-model="party.owner">
+            <button class="btn btn-success" ng-click="addParty();">Submit</button>
+        </div>
+    </div>
 </div>
-<div>
-    Name: {{ user.first_name }} {{ user.last_name }}<br>
-    Birthday: {{ user.birth }}<br>
-    Email: {{ user.email }}<br>
-    Gender: {{ user.sex }}<br>
+<div class="col-md-7">
+    <!--Parties window -->
+    <div class="window">
+        <p class="title">Parties
+            <button class="btn btn-success btn-sm right" ng-click="partyAddShow = !partyAddShow">
+                <span ng-hide="partyAddShow">Create</span>
+                <span ng-show="partyAddShow"> - </span>
+            </button>
+        </p>
+        <div ng-repeat="party in partyList">
+            <div>
+                <a href="#/parties/{{ party.id }}">{{ party.title }}</a>
+            </div>
 
-
-
+        </div>
+    </div>
 </div>
+
 
