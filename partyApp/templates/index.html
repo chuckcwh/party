@@ -12,6 +12,7 @@
     <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "css/flip.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <!------- Angular ------->
     <script src="{% static "js/vendors/angular/angular.js" %}"></script>
@@ -25,7 +26,9 @@
     <!-- JavaScript -->
     <script src="{% static 'js/index.js' %}"></script>
     <script src="{% static "js/app.js" %}"></script>
+    <script src="{% static "js/angular-flip.js"%}"></script>
 {#    <script src="{% static 'js/map.js' %}"></script>#}
+    <script type="text/javascript">var csrftoken = "{% csrf_token %}";</script>
     <!------- Controllers ------->
     <script src="{% static "js/controllers/homeController.js" %}"></script>
     <script src="{% static "js/controllers/browseController.js" %}"></script>
@@ -40,7 +43,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="mynav" align="center">
-            <span id="navWord">Let's Party!</span>
+            <span id="navWord" class="shining">Let's Party!</span>
         </div>
         <div class="auth-left">
             {% if user.is_authenticated %}
@@ -57,7 +60,7 @@
         </div>
         {% if user.is_authenticated %}
             <a href="#/users/{{ user.id }}"><div class="youIcon">You</div></a>
-            <a href="#/event_browse"><div class="browseIcon">Browse</div></a>
+            <a href="#/event_browse/{{ user.id }}"><div class="browseIcon">Browse</div></a>
         {% endif %}
     </div>
     <div class="col-md-1"></div>

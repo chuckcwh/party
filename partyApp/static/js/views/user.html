@@ -1,24 +1,15 @@
 <div class="col-md-1"></div>
 <div class="col-md-3">
-    <div ng-hide="groupAddShow || partyAddShow">
+    <div ng-hide="partyAddShow">
         <div align="center" class="window">
             <img height=180 width=180 ng-src="media/{{ user.image }}"><br>
-            {{ user.username }}
-        </div>
-
-        <div class="window">
-            Name: {{ user.first_name }} {{ user.last_name }}<br>
-            Birthday: {{ user.birth }}<br>
-            Email: {{ user.email }}<br>
-            Gender: {{ user.sex }}<br>
-        </div>
-    </div>
-    <div ng-show="groupAddShow">
-        <div class="window">
-            <p class="title">Create Group</p>
-            <input type="text" placeholder="Group Name" class="form-control" ng-model="group.name">
-            <input type="text" placeholder="Host" class="form-control" typeahead="user.username for user in userlist | filter:$viewValue | limitTo:8" ng-model="group.host">
-            <button class="btn btn-success" ng-click="addGroup();">Submit</button>
+            <h2 style="font-family: 'Lobster', cursive;">{{ user.username }}</h2>
+            <div class="userInfo">
+                Name: {{ user.first_name }} {{ user.last_name }}<br>
+                Birthday: {{ user.birth }}<br>
+                Email: {{ user.email }}<br>
+                Gender: {{ user.sex }}<br>
+            </div>
         </div>
     </div>
     <div ng-show="partyAddShow">
@@ -35,19 +26,49 @@
 </div>
 <div class="col-md-7">
     <!--Parties window -->
-    <div class="window">
-        <p class="title">Parties
-            <button class="btn btn-success btn-sm right" ng-click="partyAddShow = !partyAddShow">
-                <span ng-hide="partyAddShow">Create</span>
-                <span ng-show="partyAddShow"> - </span>
-            </button>
-        </p>
-        <div ng-repeat="party in partyList">
-            <div>
-                <a href="#/parties/{{ party.id }}">{{ party.title }}</a>
-            </div>
-
-        </div>
+    <h2 style="font-family: 'Lobster', cursive; color: dodgerblue">Party Host <img height=40 width=40 ng-src="/static/img/host-icon.png"></h2>
+    <div class="partyBox" ng-repeat="party in user.party_host">
+        <flip flip-toggle horizontal>
+            <flip-front>
+                <img height=150 width="250" ng-src='media/{{ party.partyImage }}'>
+                <p class="partyTitle" style="text-align: center"><b>
+                    {{ party.title }}</b>
+                </p>
+                <span class='partyBoxDate'><b>{{ party.time | date:'MM / dd'}}</b></span>
+            </flip-front>
+            <flip-back style="text-align: left">
+                <div class="partyBoxBack">
+                    <h4>{{ party.title }}</h4>
+                    <p>Time: {{ party.time | date:"MM/dd/yyyy 'at' h:mma" }}</p>
+                    <p>Host: {{ party.owner.username }}</p>
+                    <p>Place: {{ party.streetnum }} {{ party.street }}, {{ party.city }}, {{ party.zip_code }}, {{ party.country }}</p>
+                    <p>Room Capacity: <!--hard code-->2 / {{ party.maxPpl }}</p>
+                    <p>Limits: {{ party.private }} party</p>
+                </div>
+            </flip-back>
+        </flip>
+    </div>
+    <h3 style="font-family: 'Lobster', cursive; color: crimson">Party Attend <img height=40 width=40 ng-src="/static/img/check_box.png"></h3>
+    <div class="partyBox" ng-repeat="party in user.party_attend">
+        <flip flip-toggle horizontal>
+            <flip-front>
+                <img height=150 width="250" ng-src='media/{{ party.partyImage }}'>
+                <p class="partyTitle"><b>
+                    {{ party.title }}</b>
+                </p>
+                <span class='partyBoxDate'><b>{{ party.time | date:'MM / dd'}}</b></span>
+            </flip-front>
+            <flip-back style="text-align: left">
+                <div class="partyBoxBack">
+                    <h4>{{ party.title }}</h4>
+                    <p>Time: {{ party.time | date:"MM/dd/yyyy 'at' h:mma" }}</p>
+                    <p>Host: {{ party.owner.username }}</p>
+                    <p>Place: {{ party.streetnum }} {{ party.street }}, {{ party.city }}, {{ party.zip_code }}, {{ party.country }}</p>
+                    <p>Room Capacity: <!--hard code-->2 / {{ party.maxPpl }}</p>
+                    <p>Limits: {{ party.private }} party</p>
+                </div>
+            </flip-back>
+        </flip>
     </div>
 </div>
 

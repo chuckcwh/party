@@ -19,7 +19,15 @@ class PartyViewSet(viewsets.ModelViewSet):
     # search_fields = ('first_name', 'last_name', 'about',)
     # ordering_fields = ('first_name', 'last_name',)
     # ordering = ('-date_joined',)
+    def pre_save(self, obj):
+        obj.owner = self.request.user
 
+    @detail_route(methods=['post'])
+    def attend(self, request, pk):
+        party = Party.objects.get(pk=pk)
+        participant_id = request.user.id
+        party.participants.add(participant_id)
+        return Response(status=status.HTTP_200_OK)
 
 # class ProjectViewSet(viewsets.ModelViewSet):
 #     queryset = Project.objects.all()
@@ -28,8 +36,7 @@ class PartyViewSet(viewsets.ModelViewSet):
 #     permission_classes = (IsOwnerOrReadOnly,)
 #     # ordering = ('-created_time',)
 #
-#     def pre_save(self, obj):
-#         obj.owner = self.request.user
+
 #
 #     def get_queryset(self):
 #         queryset = Project.objects.all()
@@ -38,12 +45,7 @@ class PartyViewSet(viewsets.ModelViewSet):
 #             queryset = queryset.filter(owner__username=username)
 #         return queryset
 #
-#     @detail_route(methods=['post'])
-#     def follow(self, request, pk):
-#         project = Project.objects.get(pk=pk)
-#         follower_id = request.DATA.get('follower', None)
-#         project.follower.add(follower_id)
-#         return Response(status=status.HTTP_200_OK)
+
 #
 #     @detail_route(methods=['post'])
 #     def followMe(self, request, pk):

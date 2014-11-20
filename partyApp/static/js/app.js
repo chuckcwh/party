@@ -1,12 +1,12 @@
-var angParty = angular.module('angParty', ['ngRoute', 'ui.bootstrap', 'ngCookies','google-maps'.ns()]).run(function($http, $cookies) {
-    $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+var angParty = angular.module('angParty', ['ngRoute', 'ui.bootstrap', 'ngCookies', 'angular-flip','google-maps'.ns()]).run(function($http, $cookies) {
+    $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
 });
 
 angParty.config(['$routeProvider', function($routeProvider){
     $routeProvider.
         when('/', {templateUrl: '/static/js/views/home.html', controller: homeController}).
         when('/users/:userId', {templateUrl: '/static/js/views/user.html', controller: userController}).
-        when('/event_browse', {templateUrl: '/static/js/views/eventBrowse.html', controller: browseController,
+        when('/event_browse/:userId', {templateUrl: '/static/js/views/eventBrowse.html', controller: browseController,
             resolve: {
                 myLocation: ["$q", function($q) {
                     var defer = $q.defer();

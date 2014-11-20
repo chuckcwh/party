@@ -1,5 +1,6 @@
-function browseController($scope, $filter, myLocation, partyLocation) {
+function browseController($scope, $http, $filter, myLocation, partyLocation, $routeParams) {
 
+    var userId = $routeParams.userId;
     //party list
     $scope.parties = partyLocation.response.results;
     console.log($scope.parties);
@@ -19,7 +20,6 @@ function browseController($scope, $filter, myLocation, partyLocation) {
         addMarker.push(createPartyMarker(i));
     }
     $scope.partyMarker = addMarker;
-    console.log($scope.partyMarker);
 
     $scope.$watch("partyKwd", function(partyKwd) {
         $scope.filteredMarkers =  $filter("filter")($scope.partyMarker, partyKwd);
@@ -42,8 +42,24 @@ function browseController($scope, $filter, myLocation, partyLocation) {
     });
 
 
+    $scope.partyHostBy = function(party) {
+        return party.owner.id == userId;
+    };
 
+    $scope.partyAttend = function(party) {
+        for (var i=0; i<party.participants.length; i++) {
+            if (party.participants[i].id == userId) {
+                return true
+            }
+        }
+    };
 
+    $scope.goParty = function(id) {
+        $http.post('api/v1/parties/' + id + '/attend/').success(function() {
+            console.log('attend success');
+//            $scope.user = response;
+        });
+    };
 
     //map info
     $scope.map = {
@@ -64,11 +80,5 @@ function browseController($scope, $filter, myLocation, partyLocation) {
     };
 
 
-
-
-    $scope.check = true;
-    $scope.toggleCard = function() {
-        $scope.check = $scope.check === false ? true: false;
-    };
 
 }
