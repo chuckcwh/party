@@ -25,6 +25,8 @@ class PartyViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['post'])
     def attend(self, request, pk):
         party = Party.objects.get(pk=pk)
+        
+        # I think you could just do party.participants.add(request.user) instead of these two lines
         participant_id = request.user.id
         party.participants.add(participant_id)
         return Response(status=status.HTTP_200_OK)
