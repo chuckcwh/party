@@ -41,6 +41,7 @@ class UserImageForm(ModelForm):
         model = Profile
         fields = ('image',)
 
+# If you made this a ModelForm instead of a regualr form, you wouldn't have to define all of the fields
 class PartyForm(forms.Form):
     sex_choice = (
         ('Male', 'Male'),
