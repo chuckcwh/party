@@ -2,6 +2,9 @@ var angParty = angular.module('angParty', ['ngRoute', 'ui.bootstrap', 'ngCookies
     $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
 });
 
+
+// There seems to be a mix of jQuery/separate js files and an angular app, 
+// not sure if both are being used or one is just legacy.
 angParty.config(['$routeProvider', function($routeProvider){
     $routeProvider.
         when('/', {templateUrl: '/static/js/views/home.html', controller: homeController}).
