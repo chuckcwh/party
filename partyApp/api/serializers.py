@@ -13,6 +13,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         write_only_fields = ('password',)
 
     def get_party_host(self, obj):
+        # with proper related names you could jsut do obj.parties or obj.owned_parties
         return Party.objects.filter(owner=obj).values()
 
     def get_party_attend(self, obj):
@@ -31,6 +32,7 @@ class PartySerializer(serializers.ModelSerializer):
         # read_only_fields = ('date_joined',)
 
     def get_participants(self, obj):
+        # could just do obj.participants.values()
         return Profile.objects.filter(parties_participants=obj).values()
     # def get_project_count(self, obj):
     #     return obj.project.count()
