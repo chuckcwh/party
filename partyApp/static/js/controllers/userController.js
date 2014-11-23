@@ -23,6 +23,8 @@ function userController($scope, $http, $location,$routeParams, $rootScope) {
             'longitude': $scope.party.longitude,
             'time': $scope.party.time
         };
+        
+        // Would be good to put your API calls from your controllers into a service/factory
         $http.post('/api/v1/parties/', data)
             .success(function(response) {
                 $scope.partyPageChanged();
