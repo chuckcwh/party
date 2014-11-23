@@ -1,3 +1,7 @@
+# You should try to name this something different than just `party app` since the project is named `party`
+
+# You have .pyc files checked into your repo, which you need to remove or weird things could happen when you try to deploy
+
 import json
 import urllib
 from django.contrib.auth.models import AbstractUser
@@ -8,9 +12,9 @@ class Profile(AbstractUser):
         upload_to='profile_pictures',
         blank=True,
         null=True,
-        default='profile_pictures/default-profile-photo.png')
+        default='profile_pictures/default-profile-photo.png') # This should be in your images folder, not media folder
     birth = models.DateField(blank=True, null=True)
-    sex = models.CharField(max_length=20, blank=True, null=True)
+    sex = models.CharField(max_length=20, blank=True, null=True) # Maybe this should be a choice field instead of free text
     about = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
@@ -27,18 +31,19 @@ class Party(models.Model):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     time = models.DateTimeField()
-    maxPpl = models.PositiveSmallIntegerField(blank=True, null=True)
+    maxPpl = models.PositiveSmallIntegerField(blank=True, null=True)  # use underscores not camelcase!
     minAge = models.PositiveSmallIntegerField(blank=True, null=True)
     maxAge = models.PositiveSmallIntegerField(blank=True, null=True)
     targetSex = models.CharField(max_length=20, blank=True, null=True)
-    private = models.CharField(max_length=20)
+    private = models.CharField(max_length=20)  # should this be a boolean?
     owner = models.ForeignKey(Profile, related_name='parties_owner')
+    # doesn't need to be blank and null
     participants = models.ManyToManyField(Profile, related_name='parties_participants', blank=True, null=True)
     streetnum = models.IntegerField(null=True, blank=True)
     street = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
-    zip_code = models.IntegerField(null=True, blank=True)
+    zip_code = models.IntegerField(null=True, blank=True)  # zipcodes are better as char fields
     country = models.CharField(max_length=100, blank=True)
 
     def __unicode__(self):
